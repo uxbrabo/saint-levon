@@ -58,7 +58,7 @@ export function Hero() {
             <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-4">
               <motion.a
                 ref={magneticRef}
-                href="#catalogo"
+                href="/catalogo"
                 onMouseMove={onMagneticMove}
                 onMouseLeave={onMagneticLeave}
                 style={magneticStyle}

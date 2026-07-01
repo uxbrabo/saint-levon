@@ -68,7 +68,7 @@ export function CheckoutFlow() {
               Adicione produtos ao carrinho antes de finalizar a compra.
             </p>
             <Link
-              href="/#catalogo"
+              href="/catalogo"
               className="text-cta mt-8 inline-flex items-center rounded-full bg-accent px-8 py-4 text-accent-fg transition-opacity duration-200 hover:opacity-85"
             >
               Ver catálogo

@@ -64,7 +64,7 @@ export function CartDrawer() {
                 <CartIcon className="h-10 w-10 text-secondary" />
                 <p className="text-body text-secondary">Seu carrinho está vazio.</p>
                 <Link
-                  href="/#catalogo"
+                  href="/catalogo"
                   onClick={close}
                   className="text-cta rounded-full bg-accent px-6 py-3 text-accent-fg transition-opacity duration-200 hover:opacity-85"
                 >

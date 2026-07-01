@@ -9,7 +9,7 @@ import { useCart } from "@/context/CartProvider";
 import { CartIcon, ThemeIcon } from "@/components/icons";
 
 const NAV_LINKS = [
-  { label: "Catálogo", href: "/#catalogo" },
+  { label: "Catálogo", href: "/catalogo" },
   { label: "Categorias", href: "/#categorias" },
   { label: "Tecnologias", href: "/#tecnologias" },
   { label: "Sobre nós", href: "/#footer" },

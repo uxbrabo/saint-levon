@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useId } from "react";
+import { useState, useMemo, useId, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
@@ -120,6 +120,16 @@ export default function CatalogoPage() {
   const [query, setQuery] = useState("");
   const [showGuide, setShowGuide] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+
+  // Lê ?categoria= da URL (vindo dos tiles de categoria ou footer)
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("categoria");
+      if (cat && CATEGORIES.includes(cat)) setCategory(cat);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   const filtered = useMemo(() => {
     let list = products.filter((p) => {

@@ -46,7 +46,7 @@ export function ProductDetail({ product }: { product: Product }) {
               Início
             </Link>
             <span aria-hidden="true" className="shrink-0">/</span>
-            <Link href="/#catalogo" className="shrink-0 transition-colors duration-200 hover:text-fg">
+            <Link href="/catalogo" className="shrink-0 transition-colors duration-200 hover:text-fg">
               Catálogo
             </Link>
             <span aria-hidden="true" className="shrink-0">/</span>

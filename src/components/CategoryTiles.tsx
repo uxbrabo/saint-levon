@@ -15,7 +15,7 @@ export function CategoryTiles() {
           {categoryTiles.map((tile, i) => (
             <ScrollReveal key={tile.id} direction="up" threshold={0.2} delay={(i % 3) * 100}>
               <motion.a
-                href={`/?categoria=${encodeURIComponent(tile.label)}#catalogo`}
+                href={`/catalogo?categoria=${encodeURIComponent(tile.label)}`}
                 initial="rest"
                 whileHover="hover"
                 animate="rest"

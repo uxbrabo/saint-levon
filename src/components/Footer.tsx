@@ -6,9 +6,9 @@ const NAV = [
     title: "Catálogo",
     links: [
       { label: "Todos os produtos", href: "/catalogo" },
-      { label: "Streetwear", href: "/?categoria=Streetwear#catalogo" },
-      { label: "Treino", href: "/?categoria=Treino#catalogo" },
-      { label: "Praia", href: "/?categoria=Praia#catalogo" },
+      { label: "Streetwear", href: "/catalogo?categoria=Streetwear" },
+      { label: "Treino", href: "/catalogo?categoria=Treino" },
+      { label: "Praia", href: "/catalogo?categoria=Praia" },
     ],
   },
   {
