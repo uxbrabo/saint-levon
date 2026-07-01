@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useTheme } from "@/context/ThemeProvider";
 import { useCart } from "@/context/CartProvider";
@@ -45,6 +46,7 @@ function MenuIcon({ open, light }: { open: boolean; light: boolean }) {
 export function Header() {
   const { theme, toggleTheme } = useTheme();
   const { count, open: openCart } = useCart();
+  const { data: session } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -121,16 +123,16 @@ export function Header() {
             </AnimatePresence>
           </button>
 
-          <a
-            href="#entrar"
+          <Link
+            href={session ? "/minha-conta" : "/login"}
             className={`text-cta hidden items-center rounded-full border px-5 py-2.5 transition-colors duration-200 sm:inline-flex ${
               transparent
                 ? "border-white/50 text-white hover:border-white"
                 : "border-line text-fg hover:border-fg"
             }`}
           >
-            Entrar
-          </a>
+            {session ? (session.user?.name?.split(" ")[0] ?? "Conta") : "Entrar"}
+          </Link>
 
           <motion.button
             type="button"
@@ -198,13 +200,13 @@ export function Header() {
                 </li>
               ))}
               <li className="sm:hidden">
-                <a
-                  href="#entrar"
+                <Link
+                  href={session ? "/minha-conta" : "/login"}
                   onClick={() => setMenuOpen(false)}
                   className="text-body block py-2.5 text-fg transition-colors duration-200 hover:text-secondary"
                 >
-                  Entrar
-                </a>
+                  {session ? "Minha conta" : "Entrar"}
+                </Link>
               </li>
             </ul>
           </motion.nav>

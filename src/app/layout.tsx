@@ -3,6 +3,7 @@ import { Archivo, DM_Sans } from "next/font/google";
 import { MotionConfig } from "motion/react";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { CartProvider } from "@/context/CartProvider";
+import { SessionProvider } from "@/context/SessionProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -43,15 +44,17 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-bg text-fg" id="top">
         <MotionConfig reducedMotion="user" transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
-          <ThemeProvider>
-            <CartProvider>
-              <CustomCursor />
-              <Header />
-              {children}
-              <Footer />
-              <CartDrawer />
-            </CartProvider>
-          </ThemeProvider>
+          <SessionProvider>
+            <ThemeProvider>
+              <CartProvider>
+                <CustomCursor />
+                <Header />
+                {children}
+                <Footer />
+                <CartDrawer />
+              </CartProvider>
+            </ThemeProvider>
+          </SessionProvider>
         </MotionConfig>
       </body>
     </html>
