@@ -41,16 +41,16 @@ export function ProductDetail({ product }: { product: Product }) {
     <main>
       <Section ariaLabel={product.name} className="bg-bg pt-32 transition-colors duration-300 md:pt-36">
         <Container>
-          <nav aria-label="Trilha de navegação" className="text-label flex items-center gap-2 text-secondary">
-            <Link href="/" className="transition-colors duration-200 hover:text-fg">
+          <nav aria-label="Trilha de navegação" className="text-label flex min-w-0 items-center gap-2 text-secondary">
+            <Link href="/" className="shrink-0 transition-colors duration-200 hover:text-fg">
               Início
             </Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/#catalogo" className="transition-colors duration-200 hover:text-fg">
+            <span aria-hidden="true" className="shrink-0">/</span>
+            <Link href="/#catalogo" className="shrink-0 transition-colors duration-200 hover:text-fg">
               Catálogo
             </Link>
-            <span aria-hidden="true">/</span>
-            <span className="text-fg">{product.name}</span>
+            <span aria-hidden="true" className="shrink-0">/</span>
+            <span className="truncate text-fg">{product.name}</span>
           </nav>
 
           <div className="mt-8 flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">

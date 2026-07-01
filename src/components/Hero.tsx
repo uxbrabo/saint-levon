@@ -34,7 +34,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[68%_center] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+        className="object-cover object-center sm:object-[68%_center] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
       />
       {/* Os modelos ficam centro-direita na foto — o texto ocupa o espaço aberto à esquerda */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.4)_42%,rgba(0,0,0,0.05)_70%)]" />

@@ -31,8 +31,8 @@ export function Footer() {
   return (
     <footer id="footer" className="bg-surface text-fg transition-colors duration-300">
       <div className="mx-auto w-full max-w-[1440px] px-6 py-16 md:px-12 lg:px-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_repeat(3,1fr)]">
-          <div>
+        <div className="grid grid-cols-2 gap-8 sm:gap-10 lg:grid-cols-[1.2fr_repeat(3,1fr)]">
+          <div className="col-span-2 lg:col-span-1">
             <p className="font-display text-xl text-fg">SAINT LEVON</p>
             <p className="text-body mt-3 max-w-xs text-secondary">
               Roupa premium pra vida de surf e cidade. Tecnologia, conforto e atitude em cada peça.

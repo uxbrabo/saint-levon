@@ -18,7 +18,7 @@ export function WaveText({
   const Heading = as;
 
   return (
-    <Heading className={`relative inline-block overflow-hidden ${className}`}>
+    <Heading className={`relative inline-block max-w-full overflow-hidden break-words ${className}`}>
       <motion.span
         initial={{ clipPath: "inset(0 100% 0 0)" }}
         whileInView={{ clipPath: "inset(0 0% 0 0)" }}

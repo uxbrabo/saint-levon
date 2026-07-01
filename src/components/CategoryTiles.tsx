@@ -11,7 +11,7 @@ export function CategoryTiles() {
   return (
     <Section id="categorias" ariaLabel="Categorias" topPad={false} className="bg-bg transition-colors duration-300">
       <Container>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
           {categoryTiles.map((tile, i) => (
             <ScrollReveal key={tile.id} direction="up" threshold={0.2} delay={(i % 3) * 100}>
               <motion.a
@@ -19,7 +19,7 @@ export function CategoryTiles() {
                 initial="rest"
                 whileHover="hover"
                 animate="rest"
-                className="relative block aspect-[3/4] overflow-hidden rounded-3xl bg-surface"
+                className="relative block aspect-[16/10] overflow-hidden rounded-3xl bg-surface sm:aspect-[3/4]"
               >
                 <motion.div
                   variants={{
