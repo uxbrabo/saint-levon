@@ -34,13 +34,14 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center sm:object-[68%_center] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+        className="object-cover object-[70%_center] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
       />
-      {/* Os modelos ficam centro-direita na foto — o texto ocupa o espaço aberto à esquerda */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.4)_42%,rgba(0,0,0,0.05)_70%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+      {/* Mobile: scrim de baixo pra cima cobrindo a zona de texto */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent sm:hidden" />
+      {/* Desktop: scrim da esquerda (texto) pra direita (modelos), mais sutil */}
+      <div className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.4)_42%,rgba(0,0,0,0.05)_70%)] sm:block" />
 
-      <div className="relative z-10 flex h-full items-center pb-10 md:pb-16">
+      <div className="relative z-10 flex h-full items-end pb-14 sm:items-center sm:pb-10 md:pb-16">
         <Container>
           <motion.div variants={column} initial="hidden" animate="show" className="max-w-lg">
             <motion.h1
