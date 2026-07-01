@@ -1,7 +1,8 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "motion/react";
+import { motion, type Variants, useMotionValue, useSpring, useTransform } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { StarIcon } from "@/components/icons";
 import { useMagnetic } from "@/hooks/useMagnetic";
@@ -17,6 +18,9 @@ const item: Variants = {
   show: { opacity: 1, y: 0 },
 };
 
+const LENS_RADIUS = 110; // raio do círculo em px
+const SPRING_CONFIG = { stiffness: 280, damping: 28, mass: 0.6 };
+
 export function Hero() {
   const {
     ref: magneticRef,
@@ -26,21 +30,102 @@ export function Hero() {
   } = useMagnetic<HTMLAnchorElement>(0.35);
   const { ref: counterRef, value: counterValue } = useCountUp(10000);
 
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Posição raw do mouse (relativa à seção)
+  const rawX = useMotionValue(-9999);
+  const rawY = useMotionValue(-9999);
+
+  // Spring suave para o centro do círculo
+  const cx = useSpring(rawX, SPRING_CONFIG);
+  const cy = useSpring(rawY, SPRING_CONFIG);
+
+  // Raio do círculo — anima na entrada e saída
+  const radius = useSpring(0, { stiffness: 350, damping: 26 });
+
+  // clip-path que revela a foto colorida
+  const clipPath = useTransform(() => `circle(${radius.get()}px at ${cx.get()}px ${cy.get()}px)`);
+
+  // Posição do anel (ring) da lente — segue o mesmo spring
+  const ringX = useTransform(() => cx.get() - LENS_RADIUS);
+  const ringY = useTransform(() => cy.get() - LENS_RADIUS);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    rawX.set(e.clientX - rect.left);
+    rawY.set(e.clientY - rect.top);
+  }, [rawX, rawY]);
+
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    // Posiciona o centro imediatamente antes de crescer (sem arrastar pela tela)
+    rawX.jump(e.clientX - rect.left);
+    rawY.jump(e.clientY - rect.top);
+    cx.jump(e.clientX - rect.left);
+    cy.jump(e.clientY - rect.top);
+    radius.set(LENS_RADIUS);
+  }, [rawX, rawY, cx, cy, radius]);
+
+  const handleMouseLeave = useCallback(() => {
+    radius.set(0);
+  }, [radius]);
+
   return (
-    <section className="group relative h-screen min-h-[640px] w-full overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative h-screen min-h-[640px] w-full overflow-hidden"
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      aria-label="SAINT LEVON — Coleção atual"
+    >
+      {/* Camada base — grayscale */}
       <Image
         src="/videos/hero.jpeg"
         alt="Modelos SAINT LEVON vestindo a coleção atual na praia"
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[70%_center] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+        className="object-cover object-[70%_center] grayscale sm:object-[68%_center]"
       />
-      {/* Mobile: scrim de baixo pra cima cobrindo a zona de texto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent sm:hidden" />
-      {/* Desktop: scrim da esquerda (texto) pra direita (modelos), mais sutil */}
-      <div className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.4)_42%,rgba(0,0,0,0.05)_70%)] sm:block" />
 
+      {/* Camada colorida — revelada pelo círculo da lente */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{ clipPath }}
+        aria-hidden="true"
+      >
+        <Image
+          src="/videos/hero.jpeg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[70%_center] sm:object-[68%_center]"
+        />
+        {/* Brilho sutil na borda interna da lente */}
+        <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/20" />
+      </motion.div>
+
+      {/* Anel da lente — segue o cursor com spring */}
+      <motion.div
+        className="pointer-events-none absolute rounded-full border border-white/30 backdrop-blur-[1px]"
+        style={{
+          width: LENS_RADIUS * 2,
+          height: LENS_RADIUS * 2,
+          x: ringX,
+          y: ringY,
+          opacity: useTransform(radius, [0, 30], [0, 1]),
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Gradientes de scrim para legibilidade do texto */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent sm:hidden" />
+      <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.4)_42%,rgba(0,0,0,0.05)_70%)] sm:block" />
+
+      {/* Conteúdo */}
       <div className="relative z-10 flex h-full items-end pb-14 sm:items-center sm:pb-10 md:pb-16">
         <Container>
           <motion.div variants={column} initial="hidden" animate="show" className="max-w-lg">
