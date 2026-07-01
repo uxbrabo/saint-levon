@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Container, Section } from "@/components/layout/Container";
 
 export const metadata: Metadata = {
@@ -10,29 +11,42 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <main>
-      <Section ariaLabel="Sobre a SAINT LEVON" className="bg-bg pt-32 transition-colors duration-300 md:pt-36">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="text-label text-secondary">Nossa história</span>
-            <h1 className="font-display mt-3 text-4xl font-black uppercase tracking-tight text-fg md:text-6xl">
-              Da praia pra rua, de Recife pro mundo
+      {/* Hero editorial — foto de perfil com capuz */}
+      <section className="relative h-[70vh] min-h-[500px] overflow-hidden bg-[#0a0a0a]">
+        <Image
+          src="/images/founder/leonardo-perfil.jpeg"
+          alt="Leonardo Sodré, fundador da SAINT LEVON, em retrato de estúdio"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[40%_top]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+        <div className="relative z-10 flex h-full items-end p-6 md:p-12 lg:p-20">
+          <div>
+            <span className="text-label text-white/60">Fundador</span>
+            <h1 className="font-display mt-2 text-4xl font-black uppercase text-white md:text-6xl">
+              Leonardo Sodré
             </h1>
+            <p className="text-body mt-2 text-white/70">Recife, PE · Fundador da SAINT LEVON</p>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-surface">
-              <Image
-                src="/videos/hero.jpeg"
-                alt="Modelos SAINT LEVON na praia de Recife"
-                fill
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover grayscale"
-              />
-            </div>
-
-            <div className="flex flex-col gap-8">
+      <Section ariaLabel="Sobre a SAINT LEVON" className="bg-bg transition-colors duration-300">
+        <Container>
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+            {/* Texto */}
+            <div className="flex flex-col gap-10">
               <div>
-                <h2 className="font-display text-2xl font-bold uppercase text-fg">O fundador</h2>
+                <span className="text-label text-secondary">Nossa história</span>
+                <h2 className="font-display mt-3 text-3xl font-black uppercase text-fg md:text-4xl">
+                  Da praia pra rua, de Recife pro mundo
+                </h2>
+              </div>
+
+              <div>
+                <h3 className="font-display text-xl font-bold uppercase text-fg">O fundador</h3>
                 <p className="text-body mt-4 text-secondary">
                   <strong className="text-fg">Leonardo Sodré</strong> cresceu entre o mar e as ruas de Recife — uma cidade que não separa as duas coisas. Surfista desde a adolescência e apaixonado por cultura urbana, ele sentiu na pele a falta de uma marca que entendesse essa dupla identidade.
                 </p>
@@ -42,7 +56,7 @@ export default function SobrePage() {
               </div>
 
               <div>
-                <h2 className="font-display text-2xl font-bold uppercase text-fg">A marca</h2>
+                <h3 className="font-display text-xl font-bold uppercase text-fg">A marca</h3>
                 <p className="text-body mt-4 text-secondary">
                   SAINT LEVON nasce em Recife e fala a língua do Nordeste — direta, confiante, sem frescura. Cada peça é pensada para durar: tecidos técnicos que suportam sessões de surf e lavagens semanais com o mesmo desempenho do primeiro dia.
                 </p>
@@ -52,14 +66,50 @@ export default function SobrePage() {
               </div>
 
               <div>
-                <h2 className="font-display text-2xl font-bold uppercase text-fg">Nossa missão</h2>
+                <h3 className="font-display text-xl font-bold uppercase text-fg">Nossa missão</h3>
                 <p className="text-body mt-4 text-secondary">
                   Fazer a melhor roupa de surf e lifestyle do Brasil — com tecnologia, honestidade e design que não envelhece. Cada lançamento é testado em água antes de chegar ao seu guarda-roupa.
                 </p>
               </div>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <a
+                  href="https://wa.me/5581989056181"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cta inline-flex rounded-full bg-accent px-7 py-3.5 text-accent-fg transition-opacity duration-200 hover:opacity-85"
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href="https://instagram.com/saintlevon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cta inline-flex rounded-full border border-line px-7 py-3.5 text-fg transition-colors duration-200 hover:border-fg"
+                >
+                  @saintlevon
+                </a>
+              </div>
+            </div>
+
+            {/* Foto de frente */}
+            <div className="flex flex-col gap-6">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-surface">
+                <Image
+                  src="/images/founder/leonardo-frente.jpeg"
+                  alt="Leonardo Sodré, fundador da SAINT LEVON, retrato de estúdio de frente"
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <p className="text-label text-center text-secondary normal-case tracking-normal">
+                Leonardo Sodré — Fundador, Recife 2023
+              </p>
             </div>
           </div>
 
+          {/* Números */}
           <div className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { number: "2023", label: "Fundação em Recife, PE" },
@@ -73,6 +123,7 @@ export default function SobrePage() {
             ))}
           </div>
 
+          {/* Valores */}
           <div className="mt-20 max-w-2xl">
             <h2 className="font-display text-3xl font-black uppercase text-fg">Nossos valores</h2>
             <div className="mt-8 flex flex-col gap-6">
@@ -90,25 +141,31 @@ export default function SobrePage() {
             </div>
           </div>
 
-          <div className="mt-20">
-            <p className="text-body text-secondary">Quer conversar com a gente?</p>
-            <div className="mt-4 flex flex-wrap gap-4">
-              <a
-                href="https://wa.me/5581989056181"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cta inline-flex rounded-full bg-accent px-7 py-3.5 text-accent-fg transition-opacity duration-200 hover:opacity-85"
-              >
-                WhatsApp
-              </a>
-              <a
-                href="https://instagram.com/saintlevon"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cta inline-flex rounded-full border border-line px-7 py-3.5 text-fg transition-colors duration-200 hover:border-fg"
-              >
-                @saintlevon
-              </a>
+          {/* O moletom — produto usado pelo fundador */}
+          <div className="mt-20 overflow-hidden rounded-3xl border border-line bg-surface">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="relative aspect-[3/2] lg:aspect-auto">
+                <Image
+                  src="/images/products/moletom-male-studio.jpeg"
+                  alt="Moletom Arch SAINT LEVON usado por modelo em estúdio"
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover grayscale"
+                />
+              </div>
+              <div className="flex flex-col justify-center p-8 md:p-12">
+                <span className="text-label text-secondary">A peça do fundador</span>
+                <h2 className="font-display mt-3 text-2xl font-bold uppercase text-fg">Moletom Arch</h2>
+                <p className="text-body mt-4 text-secondary">
+                  O moletom que Leonardo usa no dia a dia é o mesmo que está no catálogo. Moletom flanelado 320g, capuz forrado, corte oversized. Feito pra durar mais do que uma temporada.
+                </p>
+                <Link
+                  href="/produto/moletom-arch"
+                  className="text-cta mt-6 inline-flex w-fit rounded-full bg-accent px-7 py-3.5 text-accent-fg transition-opacity hover:opacity-85"
+                >
+                  Ver Moletom Arch
+                </Link>
+              </div>
             </div>
           </div>
         </Container>
