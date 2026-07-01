@@ -55,13 +55,39 @@ export function ProductCatalog() {
     <Section id="catalogo" ariaLabel="Catálogo completo" topPad={false} className="bg-bg transition-colors duration-300">
       <Container>
         <ScrollReveal direction="up" threshold={0.2}>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <span className="text-label text-secondary">Catálogo</span>
-              <WaveText className="text-section mt-2 text-fg">Peças</WaveText>
+          <div className="mb-6">
+            <span className="text-label text-secondary">Catálogo</span>
+            <WaveText className="text-section mt-2 text-fg">Peças</WaveText>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3" role="group" aria-label="Filtrar catálogo por categoria">
+              {CATEGORIES.map((category) => {
+                const selected = active === category;
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setActive(category)}
+                    className={`text-cta relative rounded-full border px-5 py-2.5 transition-colors duration-200 ${
+                      selected ? "border-accent text-accent-fg" : "border-line text-fg hover:border-fg"
+                    }`}
+                  >
+                    {selected && (
+                      <motion.span
+                        layoutId="active-catalog-pill"
+                        transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                        className="absolute inset-0 rounded-full bg-accent"
+                      />
+                    )}
+                    <span className="relative">{category}</span>
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="flex items-center gap-3 rounded-full border border-line bg-surface px-5 py-3 sm:w-72">
+            <div className="flex items-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-64">
               <SearchIcon className="h-4 w-4 shrink-0 text-secondary" />
               <label htmlFor={searchId} className="sr-only">
                 Buscar no catálogo por nome do produto
@@ -75,32 +101,6 @@ export function ProductCatalog() {
                 className="text-body w-full bg-transparent text-fg placeholder:text-secondary"
               />
             </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3" role="group" aria-label="Filtrar catálogo por categoria">
-            {CATEGORIES.map((category) => {
-              const selected = active === category;
-              return (
-                <button
-                  key={category}
-                  type="button"
-                  aria-pressed={selected}
-                  onClick={() => setActive(category)}
-                  className={`text-cta relative rounded-full border px-5 py-2.5 transition-colors duration-200 ${
-                    selected ? "border-accent text-accent-fg" : "border-line text-fg hover:border-fg"
-                  }`}
-                >
-                  {selected && (
-                    <motion.span
-                      layoutId="active-catalog-pill"
-                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                      className="absolute inset-0 rounded-full bg-accent"
-                    />
-                  )}
-                  <span className="relative">{category}</span>
-                </button>
-              );
-            })}
           </div>
         </ScrollReveal>
 
