@@ -56,7 +56,7 @@ export function ProductCatalog() {
       <Container>
         <ScrollReveal direction="up" threshold={0.2}>
           <div className="mb-6">
-            <span className="text-label text-secondary">Catálogo</span>
+            <span className="text-label block text-secondary">Catálogo</span>
             <WaveText className="text-section mt-2 text-fg">Peças</WaveText>
           </div>
 
