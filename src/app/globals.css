@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
+/* ============================================================
+   SAINT LEVON — Token System (v3)
+   Identidade estritamente preto e branco — zero matiz de cor.
+   Nomes de token (--sl-olive etc.) mantidos por compatibilidade
+   com as classes Tailwind já usadas nos componentes; os VALORES
+   é que definem a paleta, agora 100% acromática.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sl-cream: #f5f3ee;
+  --sl-paper: #ffffff;
+  --sl-ink: #0a0a0a;
+  --sl-stone: #6b6b6b;
+  --sl-line: #e2e2e0;
+  --sl-olive: #0a0a0a;
+  --sl-olive-dark: #000000;
+  --sl-olive-tint: #ededeb;
+  --sl-sand: #ececea;
+  --sl-sale: #0a0a0a;
+
+  /* semântico — modo claro (padrão) */
+  --bg: var(--sl-cream);
+  --fg: var(--sl-ink);
+  --surface: var(--sl-paper);
+  --line: var(--sl-line);
+  --text-secondary: var(--sl-stone);
+  --accent: var(--sl-olive);
+  --accent-fg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #f5f3ee;
+  --surface: #171717;
+  --line: #2e2e2e;
+  --text-secondary: #a3a3a3;
+  --accent: #ffffff;
+  --accent-fg: #0a0a0a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: var(--sl-cream);
+  --color-paper: var(--sl-paper);
+  --color-ink: var(--sl-ink);
+  --color-stone: var(--sl-stone);
+  --color-olive: var(--sl-olive);
+  --color-olive-dark: var(--sl-olive-dark);
+  --color-olive-tint: var(--sl-olive-tint);
+  --color-sand: var(--sl-sand);
+  --color-sale: var(--sl-sale);
+
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+
+  --font-display: var(--font-archivo);
+  --font-body: var(--font-dm-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg);
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body), sans-serif;
+}
+
+/* ============================================================
+   Tipografia — utilitários de escala
+   ============================================================ */
+@layer components {
+  .text-hero {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(44px, 11vw, 112px);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .text-section {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  @media (min-width: 768px) {
+    .text-section {
+      font-size: 36px;
+    }
+  }
+
+  .text-body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .text-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .text-price {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .text-cta {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* ============================================================
+   Acessibilidade
+   ============================================================ */
+a,
+button,
+input,
+[tabindex] {
+  cursor: pointer;
+}
+
+input {
+  cursor: text;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--sl-olive);
+  color: #ffffff;
+}
+
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
